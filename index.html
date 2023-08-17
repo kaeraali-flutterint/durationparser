@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="user">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Duration Parser</title>
+</head>
+
+<body>
+<header>
+    <nav>
+    </nav>
+    <h1>ISO8601 Duration Parser</h1>
+</header>
+<main>
+    <input type="text" id="txtduration">
+    <br>
+    <section>
+        <aside>
+            <pre id="output"></pre>
+        </aside>
+    </section>
+</main>
+<footer>
+    <hr>
+    <p>
+        <small><a href="https://github.com/alicekaerast">alice</a></small>
+    </p>
+</footer>
+<script>var exports = {"__esModule": true};</script>
+<script src="https://unpkg.com/tinyduration@3.3.0/dist/index.js"></script>
+<script>
+    function compute() {
+        document.querySelector("#txtduration").value = window.location.hash.substring(1) || "P1D";
+        document.querySelector("#output").textContent = JSON.stringify(parse(document.querySelector("#txtduration").value), null, 2)
+    }
+
+    compute()
+    document.querySelector("#txtduration").oninput = function () {
+        try {
+            document.querySelector("#output").textContent = JSON.stringify(parse(document.querySelector("#txtduration").value), null, 2)
+        } catch (e) {
+            document.querySelector("#output").textContent = e.toString()
+        }
+        window.location.hash = document.querySelector("#txtduration").value
+    };
+
+    window.addEventListener('hashchange', function () {
+        compute()
+    })
+</script>
+</body>
+
+</html>
